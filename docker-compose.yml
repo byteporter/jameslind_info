@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  resume:
+    build: images/resume
+    image: resume
+    networks: 
+      - jameslind_info_net
+
+networks:
+  jameslind_info_net:
