@@ -18,8 +18,6 @@ type Resume struct {
 func GetResumeEndpoint(w http.ResponseWriter, req *http.Request) {
 	b, _ := ioutil.ReadFile(`resume.md`)
 	var output = blackfriday.MarkdownCommon(b)
-	// n := bytes.IndexByte(output, 0)
-	// w.Header().Set("Content-Type", "text/html")
 	fmt.Fprint(w, string(output))
 }
 
