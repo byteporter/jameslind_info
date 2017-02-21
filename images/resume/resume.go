@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"fmt"
+	"html/template"
 
 	"github.com/gorilla/mux"
 	"github.com/russross/blackfriday"
@@ -39,7 +39,11 @@ type Resume struct {
 func GetResumeEndpoint(w http.ResponseWriter, req *http.Request) {
 	b, _ := ioutil.ReadFile(`resume.md`)
 	var output = blackfriday.MarkdownCommon(b)
-	fmt.Fprint(w, string(output))
+	t, _ := template.ParseFiles("templates/resume.gohtml")
+	rawHtml := template.HTML(output)
+	t.Execute(w, rawHtml)
+	// fmt.Fprintf(w, "%s", output)
+
 }
 
 func main() {
