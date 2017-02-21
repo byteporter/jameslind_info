@@ -40,10 +40,7 @@ func GetResumeEndpoint(w http.ResponseWriter, req *http.Request) {
 	b, _ := ioutil.ReadFile(`resume.md`)
 	var output = blackfriday.MarkdownCommon(b)
 	t, _ := template.ParseFiles("templates/resume.gohtml")
-	rawHtml := template.HTML(output)
-	t.Execute(w, rawHtml)
-	// fmt.Fprintf(w, "%s", output)
-
+	t.Execute(w, template.HTML(output))
 }
 
 func main() {
@@ -52,6 +49,4 @@ func main() {
 	router.PathPrefix("/resources/").Handler(http.StripPrefix("/resources/", http.FileServer(http.Dir("resources"))))
 	http.Handle("/resources/", router)
 	log.Fatal(http.ListenAndServe(":8080", router))
-	// fs := justFilesFilesystem{http.Dir("resources/")}
-	// router.Handle("/resources/", http.StripPrefix("/resources/", http.FileServer(fs)))
 }
