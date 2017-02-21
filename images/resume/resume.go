@@ -32,10 +32,6 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 	return nil, nil
 }
 
-type Resume struct {
-	Body string `json:"body,omitempty`
-}
-
 func GetResumeEndpoint(w http.ResponseWriter, req *http.Request) {
 	b, _ := ioutil.ReadFile(`resume.md`)
 	var output = blackfriday.MarkdownCommon(b)
@@ -46,7 +42,8 @@ func GetResumeEndpoint(w http.ResponseWriter, req *http.Request) {
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/resume", GetResumeEndpoint).Methods("GET")
-	router.PathPrefix("/resources/").Handler(http.StripPrefix("/resources/", http.FileServer(http.Dir("resources"))))
+	fs := justFilesFilesystem{http.Dir("resources/")}
+	router.PathPrefix("/resources/").Handler(http.StripPrefix("/resources/", http.FileServer(fs)))
 	http.Handle("/resources/", router)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
