@@ -9,7 +9,8 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - $RESUME_PATH:/go/src/app/resume.md
+      - $RESUME_ROOT/$RESUME_PATH:/go/src/app/resume.md
+      - $RESUME_ROOT/$RESUME_RESOURCES:/go/src/app/resources
 
 networks:
   jameslind_info_net:
