@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -15,9 +16,11 @@ type Resume struct {
 }
 
 func GetResumeEndpoint(w http.ResponseWriter, req *http.Request) {
-	var output = blackfriday.MarkdownCommon([]byte(`#My Resume`))
+	b, _ := ioutil.ReadFile(`resume.md`)
+	var output = blackfriday.MarkdownCommon(b)
+	// n := bytes.IndexByte(output, 0)
 	// w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, output)
+	fmt.Fprint(w, string(output))
 }
 
 func main() {

@@ -8,6 +8,8 @@ services:
       - jameslind_info_net
     ports:
       - 8080:8080
+    volumes:
+      - /home/jlind/projects/jameslind_info/images/resume/resume.md:/go/src/app/resume.md:ro
 
 networks:
   jameslind_info_net:
