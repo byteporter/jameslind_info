@@ -53,16 +53,27 @@ Designed the electrical circuit and authored software for a scientific instrumen
 Skills
 ------
 
-**Polyglot**  
-C, C++, C#, F#, PHP, Go, MySQL, T-MySQL, JavaScript, Delphi, PERL, bash, Powershell
+##### Polyglot
+I enjoy learning new languages and have experience with many.  Most experienced in:
 
-**Data driven**  
-former DBA
+* C# .NET
+* T-SQL
+* PHP
+* MySQL
+* C / Assembly
+* JavaScript
+* CSS
 
-**Well versed in Windows and Linux (On x86 and ARM)**
+##### Multi-paradigms
+Learning many languages has also given me experience with many major programming paradigms:
 
-**Proponent and experienced user of Docker**
+* Procedural
+* Functional
+* Object Oriented
+* Declarative
 
-**Microcontrollers**
+##### Full Stack Experience 
+I have a lot of experience with both Windows and Linux and in fact my preferred work environment is a Windows machine running Docker.  Working as a database administrator for several years has given me a great understanding of databases and how they factor in to an application's architecture.
 
-**Electrical design**
+##### Microcontroller / Embedded
+Beginning my career by working with microcontrollers has given me a great understanding of digital electronics and a decent understanding of electronics in general.
