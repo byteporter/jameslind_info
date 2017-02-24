@@ -147,12 +147,14 @@ h3,
 
 h4,
 .modest-h4 {
-  font-size: 1.414rem;
+  font-style: italic;
+  font-size: 1.4rem;
 }
 
 h5,
 .modest-h5 {
-  font-size: 1.121rem;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 h6,
@@ -221,6 +223,7 @@ h1 {
 }
 
 h2 {
+  margin-top: 2rem;
   position: relative;
 } 
 /* Main div for border to extend to 50% from bottom left corner */
@@ -231,7 +234,7 @@ h2::after {
   bottom: 0; 
   left: 0; 
   height: 5px; 
-  width: 50%;
+  width: 40%;
 }
 
 /*h2::before {
