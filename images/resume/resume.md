@@ -25,7 +25,7 @@ Developed a REST service managing users, permissions, authorization, and authent
 
 Developed business reports incorporating data from both MySQL application databases and a Microsoft SQL database hosting proprietary data.
 
-As the most experienced member of the team by a large margin, I worked hard to teach newer developers best practices both technically and in career skills.
+As the most experienced member of the team, I worked hard to teach newer developers best practices in both technical and career skills.
 
 ### Pacific Crest Trail
 #### CA-OR-WA, USA
@@ -41,15 +41,15 @@ Researched and executed a company-wide upgrade from SQL Server 2010 to SQL Serve
 
 Researched and implemented a solution using Availability Groups to greatly increase database performance, availability, and reliability.
 
-Updated legacy SQL jobs to work properly with the redundant databases required for Availability Groups. These were typically scheduled jobs executing stored procedures that were rewritten as SSIS jobs.
+Updated legacy SQL jobs to work properly with the redundant databases required for Availability Groups.
 
 Worked directly with Application Developers to collect and analyze business requirements, design data structures, and write high performing, reliable, and accurate stored procedures which the Application Developers then utilized from their applications.
 
 ##### Application Developer - 2010-2013
 
-Developed a tool that enables marketing personnel to set rules describing products using a GUI which are then used to dynamically generate a parameterized SQL query and uploaded multiple times per day to Google Base (formerly Froogle).
+Created and maintained backend services to provide data for frontend developers.
 
-Mapped the existing process and redesigned the entire credit card processing business process, replacing a system that has been in place for over a decade with a solution based on Windows Workflow Foundation coordinating service oriented architecture with individual components written in C# implementing WCF Services based on the MSMQ binding, enabling reliable, durable processing of requests.
+Mapped the existing process and redesigned the entire credit card processing business process, replacing a system that has been in place for over a decade with a solution based on enabling reliable, durable processing of requests at a higher capacity.
 
 ### Zeta-Meter, Inc.
 #### Staunton, VA
@@ -62,38 +62,19 @@ Designed the electrical circuit and authored software for a scientific instrumen
 Skills
 ------
 
-##### Polyglot
+##### Multi-paradigm Polyglot
 
 I enjoy learning new languages and have experience with many.  I have professional experience with:
 
 * C# .NET
-* T-SQL
+* SQL: Microsoft T-SQL and MySQL
 * PHP
-* MySQL
-* C, Assembly
+* Assembly, C, and C++
 * JavaScript
 * CSS
-* C++
 * Powershell, Bash
 
-##### Multi-paradigm
-
-Learning many languages has also given me experience with many major programming paradigms including:
-
-* Procedural
-* Functional
-* Object Oriented
-* Declarative
-
-##### Craftsman
-
-I spend a great deal of time time learning how to simply work better both on a personal level and within an organization.  A selection of my favorite professional books:
-
-* The Art of Computer Programming - Donald E. Knuth
-* Clean Code - Robert C. Martin
-* The Pragmatic Programmer - Andrew Hunt, David Thomas
-* Design Patterns - Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides
-* The Mythical Man-Month - Frederick P. Brooks, Jr.
+Learning many languages has also given me experience with many major programming paradigms including object oriented, functional, procedural, and declarative.  I also have experience implementing my own small domain specific languages including lexers, parsers, and compilers.
 
 ##### Specific Solutions and Software Packages
 
