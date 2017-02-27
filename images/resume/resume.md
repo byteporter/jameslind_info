@@ -19,7 +19,7 @@ Experience
 
 ### Innovative Refrigeration Systems
 #### Lyndhurst, VA
-##### Software Developer - 2016-2017
+##### Web Developer - 2016-2017
 
 Developed a REST service managing users, permissions, authorization, and authentication.  Written in Laravel Lumen slim framework on a LAMP stack.
 
@@ -82,10 +82,10 @@ Learning many languages has also given me experience with many major programming
 * Docker, Vagrant
 * Epicor9 (Enterprise Resource Planning)
 * Microsoft SQL server
-  * General Administration
-  * T-SQL Language (Stored Procedures, Views, etc.)
-  * SQL Server Reporting Services (SSRS)
-  * SQL Server Integration Services (SSIS)
+    * General Administration
+    * T-SQL Language (Stored Procedures, Views, etc.)
+    * SQL Server Reporting Services (SSRS)
+    * SQL Server Integration Services (SSIS)
 * Splunk
 * Microsoft Silverlight, WPF, MVC, WCF Services on .NET, Primarily C#
 * Microsoft DirectX (2D and 3D)
