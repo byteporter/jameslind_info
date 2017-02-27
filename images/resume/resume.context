@@ -28,7 +28,7 @@
 %\setuppagenumbering[location={footer,center}]
 
 % ======= font bs
-\setupbodyfont[11pt, helvetica]
+\setupbodyfont[9pt, helvetica]
 
 \definefontfeature [default] [default] [onum=yes]
 \definefontfamily [resume] [sans] [Open Sans Condensed:300]
