@@ -1,5 +1,9 @@
 /*Modified by James Lind from modest.css by John Otander: https://github.com/markdowncss/modest*/
 
+/*@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
+
+@import url(https://fonts.googleapis.com/css?family=Arimo:700,700italic);*/
+
 @media print {
   *,
   *:before,
@@ -50,7 +54,7 @@
   p,
   h2,
   h3 {
-    orphans: 3;
+    orphcans: 3;
     widows: 3;
   }
 
@@ -184,10 +188,6 @@ textarea {
   max-width: 100%;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic,700);
-
-@import url(http://fonts.googleapis.com/css?family=Arimo:700,700italic);
-
 html {
   /*font-size: 18px;*/
   max-width: 100%;
@@ -195,7 +195,7 @@ html {
 
 body {
   color: #444;
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: sans-serif;
   font-weight: 300;
   margin: 0 auto;
   max-width: 62rem;
@@ -209,7 +209,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Arimo, Helvetica, sans-serif;
+  font-family: sans-serif;
 }
 
 h1,
