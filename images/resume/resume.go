@@ -32,10 +32,21 @@ func (f neuteredReaddirFile) Readdir(count int) ([]os.FileInfo, error) {
 	return nil, nil
 }
 
+type resourceFileHandler struct {
+	h http.Handler
+}
+
+func (vh resourceFileHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Vary", "Accept-Encoding")
+	w.Header().Set("Cache-Control", "max-age=2592000") //30 days
+	vh.h.ServeHTTP(w, req)
+}
+
 func GetJameslindInfoEndpoint(w http.ResponseWriter, req *http.Request) {
 	b, _ := ioutil.ReadFile(`resume.md`)
 	var output = blackfriday.MarkdownCommon(b)
 	t, _ := template.ParseFiles("templates/resume.gohtml")
+	w.Header().Set("Vary", "Accept-Encoding")
 	t.Execute(w, template.HTML(output))
 }
 
@@ -43,7 +54,8 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", GetJameslindInfoEndpoint).Methods("GET")
 	fs := justFilesFilesystem{http.Dir("resources/")}
-	router.PathPrefix("/resources/").Handler(http.StripPrefix("/resources/", http.FileServer(fs)))
+	rfh := resourceFileHandler{http.StripPrefix("/resources/", http.FileServer(fs))}
+	router.PathPrefix("/resources/").Handler(rfh)
 	http.Handle("/resources/", router)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

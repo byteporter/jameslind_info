@@ -18,4 +18,4 @@ services:
 networks:
   jameslind_info_net:
     external: 
-      name: proxy_net
+      name: wpwarpaints_net
