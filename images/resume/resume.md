@@ -3,9 +3,8 @@ James Lind
 
 |                                                         |                                                        |
 | ------------------------------------------------------- | -----------------------------------------------------: |
-| 540-292-2272                                            |                                     253 Morningside Dr |  
-| [james@byteporter.com](mailto:james@byteporter.com)     |                                 Mount Sidney, VA 24467 |
-| [jameslind.info](http://jameslind.info)                 |                    Moving to Golden, CO in April, 2017 |
+| [james@byteporter.com](mailto:james@byteporter.com)     |                                     253 Morningside Dr |  
+| [jameslind.info](http://jameslind.info)                 |                                 Mount Sidney, VA 24467 |
 
 Education
 ---------
