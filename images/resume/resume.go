@@ -8,6 +8,7 @@ import (
 
 	"html/template"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/russross/blackfriday"
 )
@@ -36,13 +37,17 @@ type resourceFileHandler struct {
 	h http.Handler
 }
 
+type resumeHandler struct {
+	h http.Handler
+}
+
 func (vh resourceFileHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Vary", "Accept-Encoding")
 	w.Header().Set("Cache-Control", "max-age=2592000") //30 days
 	vh.h.ServeHTTP(w, req)
 }
 
-func GetJameslindInfoEndpoint(w http.ResponseWriter, req *http.Request) {
+func (rh resumeHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	b, _ := ioutil.ReadFile(`resume.md`)
 	var output = blackfriday.MarkdownCommon(b)
 	t, _ := template.ParseFiles("templates/resume.gohtml")
@@ -52,7 +57,8 @@ func GetJameslindInfoEndpoint(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/", GetJameslindInfoEndpoint).Methods("GET")
+	rh := resumeHandler{}
+	router.Handle("/", handlers.CompressHandler(rh)).Methods("GET")
 	fs := justFilesFilesystem{http.Dir("resources/")}
 	rfh := resourceFileHandler{http.StripPrefix("/resources/", http.FileServer(fs))}
 	router.PathPrefix("/resources/").Handler(rfh)
