@@ -57,11 +57,10 @@ func (rh resumeHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	rh := resumeHandler{}
-	router.Handle("/", handlers.CompressHandler(rh)).Methods("GET")
-	fs := justFilesFilesystem{http.Dir("resources/")}
-	rfh := resourceFileHandler{http.StripPrefix("/resources/", http.FileServer(fs))}
-	router.PathPrefix("/resources/").Handler(rfh)
-	http.Handle("/resources/", router)
+	router.Handle("/", handlers.CompressHandler(resumeHandler{})).Methods("GET")
+	fs := justFilesFilesystem{http.Dir("./static/")}
+	rfh := handlers.CompressHandler(resourceFileHandler{http.StripPrefix("/", http.FileServer(fs))})
+	router.PathPrefix("/").Handler(rfh)
+	http.Handle("/", router)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

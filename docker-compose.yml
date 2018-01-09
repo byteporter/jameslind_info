@@ -9,13 +9,11 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - $RESUME_ROOT/$RESUME_PATH:/go/src/app/resume.md
-      - $RESUME_ROOT/$RESUME_RESOURCES:/go/src/app/resources
-      - $RESUME_ROOT/$RESUME_TEMPLATE:/go/src/app/templates/resume.gohtml
+      - ./resume.md:/go/src/app/resume.md
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
 
 networks:
   jameslind_info_net:
-    external: 
-      name: wpwarpaints_net
+    # external: 
+    #   name: wpwarpaints_net
