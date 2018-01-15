@@ -5,15 +5,13 @@ services:
     build: images/resume
     image: resume
     networks:
-      - jameslind_info_net
-    ports:
-      - 8080:8080
+      - net
     volumes:
-      - ./resume.md:/go/src/app/resume.md
+      - ./images/resume/app/resume.md:/go/src/app/resume.md
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
 
 networks:
-  jameslind_info_net:
-    # external: 
-    #   name: wpwarpaints_net
+  net:
+    external: 
+      name: infrastructure_net

@@ -1,9 +1,9 @@
 FROM golang:latest
 
-EXPOSE 8080
+EXPOSE 80
 
-WORKDIR /go/src/app
-COPY ../../app /go/src/app
+WORKDIR /go/src/app/
+COPY ./app/ /go/src/app/
 
 RUN go-wrapper download   # "go get -d -v ./..."
 RUN go-wrapper install    # "go install -v ./..."

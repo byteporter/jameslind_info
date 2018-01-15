@@ -59,8 +59,8 @@ func main() {
 	router := mux.NewRouter()
 	router.Handle("/", handlers.CompressHandler(resumeHandler{})).Methods("GET")
 	fs := justFilesFilesystem{http.Dir("./static/")}
-	rfh := handlers.CompressHandler(resourceFileHandler{http.StripPrefix("/", http.FileServer(fs))})
+	rfh := handlers.CompressHandler(resourceFileHandler{http.StripPrefix("/static/", http.FileServer(fs))})
 	router.PathPrefix("/").Handler(rfh)
 	http.Handle("/", router)
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":80", router))
 }
