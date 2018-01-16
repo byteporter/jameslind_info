@@ -4,16 +4,13 @@ expandRegexPattern()
 {
   find . |
   grep -i "$1" |
-  cut -d/ -f2-
+  cut -d/ -f2- |
+  tr '\n' ' '
 }
 
-IGNORE=""
-IGNORE="${IGNORE} /.git/"
-IGNORE="${IGNORE} .gitignore"
+IGNORE="/.git/ .gitignore /images/resume/app/source_resources/"
 
-IGNORE_PATTERNS=""
-IGNORE_PATTERNS="${IGNORE_PATTERNS} .*dist\$"
-IGNORE_PATTERNS="${IGNORE_PATTERNS} ^./.*sh\$"
+IGNORE_PATTERNS=".*\\.dist\$ ^\\./.*\\.sh\$"
 
 EXPANDED_IGNORE=""
   
@@ -21,9 +18,10 @@ for PATTERN in ${IGNORE}; do
   EXPANDED_IGNORE="${EXPANDED_IGNORE} --exclude='${PATTERN}'"
 done
 
-for MATCH in $(expandRegexPattern ${IGNORE_PATTERNS}); do
-  # EXPANDED_IGNORE="${EXPANDED_IGNORE} --exclude='$(expandRegexPattern ${MATCH})'"
-  EXPANDED_IGNORE="${EXPANDED_IGNORE} --exclude='${MATCH}'"
+for PATTERN in ${IGNORE_PATTERNS}; do
+  for MATCH in $(expandRegexPattern $PATTERN) ; do
+    EXPANDED_IGNORE="${EXPANDED_IGNORE} --exclude='${MATCH}'"
+  done
 done
 
 # echo $EXPANDED_IGNORE
