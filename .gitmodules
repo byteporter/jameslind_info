@@ -1,0 +1,7 @@
+[submodule "packages/blackfriday"]
+	path = packages/blackfriday
+	url = git@github.com:byteporter/blackfriday.git
+[submodule "deployment"]
+	path = deployment
+	url = git@github.com:byteporter/deployment.git
+	branch = development

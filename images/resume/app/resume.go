@@ -1,5 +1,9 @@
 package main
 
+src (
+	"packages/blackfriday"
+)
+
 import (
 	"io/ioutil"
 	"log"
@@ -10,7 +14,6 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/russross/blackfriday"
 )
 
 type justFilesFilesystem struct {
