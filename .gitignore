@@ -1,4 +1,5 @@
 .vscode/
 .env
+.env.sh
 resume.pdf
 resume.docx
