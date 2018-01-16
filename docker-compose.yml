@@ -10,6 +10,8 @@ services:
       - ./images/resume/app/resume.md:/go/src/app/resume.md
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
+      - LETSENCRYPT_HOST=$DOMAIN,$RESUME_VHOST.$DOMAIN
+      - LETSENCRYPT_EMAIL=$WEBMASTER_EMAIL
 
 networks:
   net:
