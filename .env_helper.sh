@@ -8,9 +8,9 @@ expandRegexPattern()
   tr '\n' ' '
 }
 
-IGNORE="/.git/ .gitignore /images/resume/app/source_resources/"
+IGNORE="/.git/ .gitignore /images/resume/app/source_resources/ /.env"
 
-IGNORE_PATTERNS=".*\\.dist\$ ^\\./.*\\.sh\$"
+IGNORE_PATTERNS="^\\./.*\\.sh\$"
 
 EXPANDED_IGNORE=""
   
