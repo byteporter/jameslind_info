@@ -6,7 +6,7 @@ services:
     networks:
       - net
     volumes:
-      - resume/:/go/src/github.com/byteporter/resume/
+      - ./resume/:/go/src/github.com/byteporter/resume/
       - resume_store:/go/
       - ./build-resume.sh:/usr/bin/build-resume:ro
     environment: 
@@ -16,7 +16,7 @@ services:
       - 80
     command: ["build-resume"]
 
-volume:
+volumes:
   resume_store:
 
 networks:
