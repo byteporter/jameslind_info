@@ -2,16 +2,22 @@ version: '3.4'
 
 services:
   resume:
-    build: images/resume
-    image: resume
+    image: golang:latest
     networks:
       - net
     volumes:
-      - ./images/resume/app/resume.md:/go/src/app/resume.md
+      - resume/:/go/src/github.com/byteporter/resume/
+      - resume_store:/go/
+      - ./build-resume.sh:/usr/bin/build-resume:ro
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
-      - LETSENCRYPT_HOST=$DOMAIN,$RESUME_VHOST.$DOMAIN
-      - LETSENCRYPT_EMAIL=$WEBMASTER_EMAIL
+    working_dir: /go/src/github.com/byteporter/resume/
+    expose:
+      - 80
+    command: ["build-resume"]
+
+volume:
+  resume_store:
 
 networks:
   net:

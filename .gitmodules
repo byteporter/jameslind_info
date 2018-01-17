@@ -5,3 +5,7 @@
 	path = deployment
 	url = git@github.com:byteporter/deployment.git
 	branch = development
+[submodule "resume"]
+	path = resume
+	url = git@github.com:byteporter/resume.git
+	branch = development
