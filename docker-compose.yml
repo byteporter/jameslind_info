@@ -2,22 +2,20 @@ version: '3.4'
 
 services:
   resume:
-    image: golang:latest
+    build:
+      context: ./
+    image: jlind/resume
     networks:
       - net
     volumes:
       - ./resume/:/go/src/github.com/byteporter/resume/
-      - resume_store:/go/
-      - ./build-resume.sh:/usr/bin/build-resume:ro
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
     working_dir: /go/src/github.com/byteporter/resume/
     expose:
       - 80
-    command: ["build-resume"]
-
-volumes:
-  resume_store:
+    ports:
+      - 8080:80
 
 networks:
   net:
