@@ -1,6 +1,8 @@
 FROM golang:1.9.2-alpine3.7 AS BuildResumeApp
 LABEL MAINTAINER="james@byteporter.com"
 
+ENV CGO_ENABLED=0
+
 RUN set -x \
     && apk add --no-cache --virtual .build-deps git
 
@@ -10,12 +12,12 @@ COPY resume /go/src/github.com/byteporter/resume
 
 RUN set -x \
     && go-wrapper download \
-    && go-wrapper install
+    && go-wrapper install -a
 
-FROM alpine:3.7
+FROM scratch
 
 EXPOSE 80
 
-COPY --from=BuildResumeApp /go/bin/resume /bin/resume
+COPY --from=BuildResumeApp /go/bin/resume /go/bin/resume
 
-ENTRYPOINT [ "/bin/resume" ]
+ENTRYPOINT [ "/go/bin/resume" ]
