@@ -1,19 +1,23 @@
-version: '2'
+version: '3.4'
 
 services:
   resume:
-    build: images/resume
-    image: resume
+    build:
+      context: ./
+    image: jlind/resume
     networks:
-      - jameslind_info_net
-    ports:
-      - 8080:8080
+      - net
     volumes:
-      - ./resume.md:/go/src/app/resume.md
+      - ./resume/:/go/src/github.com/byteporter/resume/
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
+    working_dir: /go/src/github.com/byteporter/resume/
+    expose:
+      - 80
+    ports:
+      - 8080:80
 
 networks:
-  jameslind_info_net:
-    # external: 
-    #   name: wpwarpaints_net
+  net:
+    external: 
+      name: infrastructure_net
