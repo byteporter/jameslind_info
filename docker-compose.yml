@@ -12,12 +12,8 @@ services:
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
     working_dir: /go/src/github.com/byteporter/resume/
-    expose:
-      - 80
-    ports:
-      - 8080:80
 
 networks:
   net:
     external: 
-      name: infrastructure_net
+      name: dockerreverseproxy_net
