@@ -16,4 +16,4 @@ services:
 networks:
   net:
     external: 
-      name: dockerreverseproxy_net
+      name: docker-reverse-proxy_net
