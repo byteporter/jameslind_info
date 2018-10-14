@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  build-application:
+    build: ./resume/build/package/docker/go-build-environment/
+    image: jlind/go-build-environment
+    volumes:
+      - gopath:/go/src/
+      - ./resume/:/go/src/github.com/byteporter/resume/
+    working_dir: /go/src/github.com/byteporter/resume/
+    entrypoint: ["/bin/sh", "-x", "-c"]
+    command: ['go get -v cmd/resume/resume.go && make application']
+
+  build-documents:
+    build: ./resume/build/package/docker/pandoc-build-environment/
+    image: jlind/pandoc-build-environment
+    volumes:
+      - ./resume/:/build/
+    working_dir: /build/
+    entrypoint: ["/bin/sh", "-x", "-c"]
+    command: ['make pdf && make docx && make rtf']
+
+volumes:
+  gopath:
