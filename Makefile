@@ -15,11 +15,11 @@ all: .application-container
 
 clean:
 	@printf '$(BLU)Cleaning up...$(END)\n'
-	docker image rm jlind/resume
+	docker image rm jlind/resume ||:
 	rm .application-container ||:
 	@printf '$(GRN)Done!$(END)\n\n'
 
-.application-container: resume/resume resume/web/
+.application-container: resume/cmd/resume/ resume/web/ Dockerfile .go-build-environment .pandoc-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker build -t jlind/resume .
 	touch .application-container
