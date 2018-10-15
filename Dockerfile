@@ -3,7 +3,7 @@ FROM jlind/go-build-environment AS ApplicationBuilder
 COPY resume/ /build/
 
 WORKDIR /build/
-
+RUN go get -v -d ./cmd/resume/...
 RUN make resume
 
 FROM jlind/pandoc-build-environment AS HardcopyBuilder
@@ -24,7 +24,7 @@ LABEL MAINTAINER="james@byteporter.com"
 EXPOSE 80
 
 COPY --from=HardcopyBuilder /go/bin/resume /go/bin/resume
-COPY --from=HardcopyBuilder /usr/share/resume/ /usr/share/
+COPY --from=HardcopyBuilder /usr/share/resume/ /usr/share/resume/
 
 WORKDIR /usr/share/resume/
 ENTRYPOINT [ "/go/bin/resume" ]
