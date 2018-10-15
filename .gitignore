@@ -1,6 +1,8 @@
 .vscode/
 .env
 .env.sh
-resume.pdf
-resume.docx
+
 docker-compose.override.yml
+.application-container
+.go-build-environment
+.pandoc-build-environment

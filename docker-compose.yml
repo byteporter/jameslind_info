@@ -7,11 +7,9 @@ services:
     image: jlind/resume
     networks:
       - net
-    volumes:
-      - ./resume/:/go/src/github.com/byteporter/resume/
     environment: 
       - VIRTUAL_HOST=$RESUME_VHOST.$DOMAIN
-    working_dir: /go/src/github.com/byteporter/resume/
+    working_dir: /usr/share/resume/
 
 networks:
   net:

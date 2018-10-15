@@ -1,24 +1,30 @@
-FROM golang:1.9.2-alpine3.7 AS BuildResumeApp
+FROM jlind/go-build-environment AS ApplicationBuilder
+
+COPY resume/ /build/
+
+WORKDIR /build/
+
+RUN make resume
+
+FROM jlind/pandoc-build-environment AS HardcopyBuilder
+
+ENV INSTALL_DIR /usr/share/resume/
+ENV BIN_DIR /go/bin/
+
+COPY resume/ /build/
+COPY --from=ApplicationBuilder /build/resume /build/
+
+WORKDIR /build/
+
+RUN make install
+
+FROM alpine:3.8
 LABEL MAINTAINER="james@byteporter.com"
-
-# ENV CGO_ENABLED=0
-
-RUN set -x \
-    && apk add --no-cache --virtual .build-deps git
-
-WORKDIR /go/src/github.com/byteporter/resume
-
-COPY resume /go/src/github.com/byteporter/resume
-
-# go-wrapper install needs '-a' option to rebuild libraries statically too if necessary
-RUN set -x \
-    && go-wrapper download \
-    && go-wrapper install
-
-FROM alpine:3.7
 
 EXPOSE 80
 
-COPY --from=BuildResumeApp /go/bin/resume /go/bin/resume
+COPY --from=HardcopyBuilder /go/bin/resume /go/bin/resume
+COPY --from=HardcopyBuilder /usr/share/resume/ /usr/share/
 
+WORKDIR /usr/share/resume/
 ENTRYPOINT [ "/go/bin/resume" ]
