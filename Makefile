@@ -9,6 +9,8 @@ MAG=\e[1;35m
 CYN=\e[1;36m
 END=\e[0m
 
+CONTENT := $(shell find resume/web -type f)
+
 .PHONY: all clean install uninstall
 
 all: .application-container
@@ -19,7 +21,7 @@ clean:
 	rm .application-container ||:
 	@printf '$(GRN)Done!$(END)\n\n'
 
-.application-container: resume/cmd/resume/ resume/web/ Dockerfile .go-build-environment .pandoc-build-environment
+.application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker build -t jlind/resume .
 	touch .application-container
