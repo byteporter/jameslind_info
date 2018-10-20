@@ -26,6 +26,8 @@ clean:
 
 .application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
+	pwd
+	ls -lah
 	docker run -i --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
 	docker run -i --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
 	docker run -i --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/node-build-environment make install
