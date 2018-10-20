@@ -1,5 +1,7 @@
 SHELL := /bin/sh
 
+# TODO: Move dependencies into resume/vendor folder for use in building within the Docker build environment containers
+
 # Terminal color control strings
 RED=\e[1;31m
 GRN=\e[1;32m
@@ -10,6 +12,7 @@ CYN=\e[1;36m
 END=\e[0m
 
 CONTENT := $(shell find resume/web -type f)
+FULL_PATH := $(realpath resume/)
 
 .PHONY: all clean install uninstall
 
@@ -23,18 +26,20 @@ clean:
 
 .application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
+	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
+	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make install
 	docker build -t jlind/resume .
 	touch .application-container
 	@printf '$(GRN)Done!$(END)\n\n'
 
-.go-build-environment: resume/build/package/docker/go-build-environment/
+.go-build-environment: resume/build/package/docker/go-build-environment/Dockerfile
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/go-build-environment$(BLU)...$(END)\n'
-	cd $< && docker build -t jlind/go-build-environment .
+	cd $(dir $<) && docker build -t jlind/go-build-environment .
 	touch .go-build-environment
 	@printf '$(GRN)Done!$(END)\n\n'
 
-.pandoc-build-environment: resume/build/package/docker/pandoc-build-environment/
+.pandoc-build-environment: resume/build/package/docker/pandoc-build-environment/Dockerfile
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/pandoc-build-environment$(BLU)...$(END)\n'
-	cd $< && docker build -t jlind/pandoc-build-environment .
+	cd $(dir $<) && docker build -t jlind/pandoc-build-environment .
 	touch .pandoc-build-environment
 	@printf '$(GRN)Done!$(END)\n\n'
