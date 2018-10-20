@@ -21,16 +21,24 @@ all: .application-container
 clean:
 	@printf '$(BLU)Cleaning up...$(END)\n'
 	docker image rm jlind/resume ||:
+	docker rm holder ||:
+	docker volume rm resume-build-volume ||:
 	rm .application-container ||:
 	@printf '$(GRN)Done!$(END)\n\n'
 
+# Jenkins will be used to build this and runs in a container itself so is unable to bind mount a directory from its filesystem.
+# This is the workaround I came up with, build in a volume, archive the results, and ADD that archive in the Dockerfile build.
+
 .application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
-	pwd
-	ls
-	docker run --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
-	docker run --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
-	docker run --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/node-build-environment make install
+	docker run -d --rm --name holder -v resume-build-volume:/build busybox sleep 600
+	docker cp $(FULL_PATH)/. holder:/build
+	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
+	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
+	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ jlind/node-build-environment make install
+	docker run --rm -v resume-build-volume:/build busybox tar cfvz /build/resume-build-output.tar.gz -C /build/output/ .
+	docker cp holder:/build/resume-build-output.tar.gz $(FULL_PATH)/
+	docker rm -f holder
 	docker build -t jlind/resume .
 	touch .application-container
 	@printf '$(GRN)Done!$(END)\n\n'

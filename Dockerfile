@@ -3,8 +3,7 @@ LABEL MAINTAINER="james@byteporter.com"
 
 EXPOSE 80
 
-COPY resume/output/go/bin /go/bin
-COPY resume/output/usr/share/resume /usr/share/resume
+ADD resume/resume-build-output.tar.gz /
 
 WORKDIR /usr/share/resume/
 ENTRYPOINT [ "/go/bin/resume" ]
