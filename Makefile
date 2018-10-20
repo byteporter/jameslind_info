@@ -24,10 +24,11 @@ clean:
 	rm .application-container ||:
 	@printf '$(GRN)Done!$(END)\n\n'
 
-.application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment
+.application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
-	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make install
+	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
+	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/node-build-environment make install
 	docker build -t jlind/resume .
 	touch .application-container
 	@printf '$(GRN)Done!$(END)\n\n'
@@ -42,4 +43,10 @@ clean:
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/pandoc-build-environment$(BLU)...$(END)\n'
 	cd $(dir $<) && docker build -t jlind/pandoc-build-environment .
 	touch .pandoc-build-environment
+	@printf '$(GRN)Done!$(END)\n\n'
+
+.node-build-environment: resume/build/package/docker/node-build-environment/Dockerfile
+	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/node-build-environment$(BLU)...$(END)\n'
+	cd $(dir $<) && docker build -t jlind/node-build-environment .
+	touch .node-build-environment
 	@printf '$(GRN)Done!$(END)\n\n'
