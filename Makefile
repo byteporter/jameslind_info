@@ -27,14 +27,10 @@ clean:
 	rm .application-container ||:
 	@printf '$(GRN)Done!$(END)\n\n'
 
-<<<<<<< HEAD
 # Jenkins will be used to build this and runs in a container itself so is unable to bind mount a directory from its filesystem.
 # This is the workaround I came up with, build in a volume, archive the results, and ADD that archive in the Dockerfile build.
 
-.application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
-=======
 .application-container: resume/cmd/resume/resume.go $(CONTENT) $(STYLES) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
->>>>>>> development
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker run -d --rm --name holder -v resume-build-volume:/build busybox sleep 600
 	docker cp $(FULL_PATH)/. holder:/build
