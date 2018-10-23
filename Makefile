@@ -12,6 +12,7 @@ CYN=\e[1;36m
 END=\e[0m
 
 CONTENT := $(shell find resume/web -type f)
+STYLES := $(shell find resume/tools/style-templates -type f)
 FULL_PATH := $(realpath resume/)
 
 .PHONY: all clean install uninstall
@@ -24,7 +25,7 @@ clean:
 	rm .application-container ||:
 	@printf '$(GRN)Done!$(END)\n\n'
 
-.application-container: resume/cmd/resume/resume.go $(CONTENT) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
+.application-container: resume/cmd/resume/resume.go $(CONTENT) $(STYLES) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
 	docker run -it --rm -v $(FULL_PATH):/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
