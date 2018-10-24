@@ -3,7 +3,7 @@ LABEL MAINTAINER="james@byteporter.com"
 
 EXPOSE 80
 
-ADD resume/resume-build-output.tar.gz /
+ADD resume-build-output.tar.gz /
 
 WORKDIR /usr/share/resume/
 ENTRYPOINT [ "/go/bin/resume" ]

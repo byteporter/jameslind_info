@@ -34,11 +34,12 @@ clean:
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker run -d --rm --name holder -v resume-build-volume:/build busybox sleep 600
 	docker cp $(FULL_PATH)/. holder:/build
-	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
-	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
-	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ jlind/node-build-environment make install
+	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ -w /go/src/github.com/byteporter/resume/ jlind/go-build-environment make resume
+	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ -w /go/src/github.com/byteporter/resume/ jlind/pandoc-build-environment make hardcopy
+	docker run --rm -v resume-build-volume:/go/src/github.com/byteporter/resume/ -w /go/src/github.com/byteporter/resume/ jlind/node-build-environment make install
+	docker run --rm -v resume-build-volume:/build busybox chown -R $$(id -u):$$(id -g) /build/output/
 	docker run --rm -v resume-build-volume:/build busybox tar cfvz /build/resume-build-output.tar.gz -C /build/output/ .
-	docker cp holder:/build/resume-build-output.tar.gz $(FULL_PATH)/
+	docker cp holder:/build/resume-build-output.tar.gz $(realpath ./)
 	docker rm -f holder
 	docker build -t jlind/resume .
 	touch .application-container

@@ -6,3 +6,4 @@ docker-compose.override.yml
 .application-container
 .go-build-environment
 .pandoc-build-environment
+resume-build-output.tar.gz
