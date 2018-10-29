@@ -3,7 +3,10 @@
 .env.sh
 
 docker-compose.override.yml
+
 .application-container
 .go-build-environment
 .pandoc-build-environment
+.patch-russross-blackfriday
+
 resume-build-output.tar.gz

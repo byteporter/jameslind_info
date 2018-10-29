@@ -30,7 +30,7 @@ clean:
 # Jenkins will be used to build this and runs in a container itself so is unable to bind mount a directory from its filesystem.
 # This is the workaround I came up with, build in a volume, archive the results, and ADD that archive in the Dockerfile build.
 
-.application-container: resume/cmd/resume/resume.go $(CONTENT) $(STYLES) Dockerfile .go-build-environment .pandoc-build-environment .node-build-environment
+.application-container: resume/cmd/resume/resume.go $(CONTENT) $(STYLES) Dockerfile .patch-russross-blackfriday .go-build-environment .pandoc-build-environment .node-build-environment
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/resume$(BLU)...$(END)\n'
 	docker run -d --rm --name holder -v resume-build-volume:/build busybox sleep 600
 	docker cp $(FULL_PATH)/. holder:/build
@@ -42,23 +42,32 @@ clean:
 	docker cp holder:/build/resume-build-output.tar.gz $(realpath ./)
 	docker rm -f holder
 	docker build -t jlind/resume .
-	touch .application-container
+	touch $@
 	@printf '$(GRN)Done!$(END)\n\n'
 
 .go-build-environment: resume/build/package/docker/go-build-environment/Dockerfile
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/go-build-environment$(BLU)...$(END)\n'
 	cd $(dir $<) && docker build -t jlind/go-build-environment .
-	touch .go-build-environment
+	touch $@
 	@printf '$(GRN)Done!$(END)\n\n'
 
 .pandoc-build-environment: resume/build/package/docker/pandoc-build-environment/Dockerfile
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/pandoc-build-environment$(BLU)...$(END)\n'
 	cd $(dir $<) && docker build -t jlind/pandoc-build-environment .
-	touch .pandoc-build-environment
+	touch $@
 	@printf '$(GRN)Done!$(END)\n\n'
 
 .node-build-environment: resume/build/package/docker/node-build-environment/Dockerfile
 	@printf '$(BLU)Building $(YEL)Docker$(BLU) container $(CYN)jlind/node-build-environment$(BLU)...$(END)\n'
 	cd $(dir $<) && docker build -t jlind/node-build-environment .
-	touch .node-build-environment
+	touch $@
+	@printf '$(GRN)Done!$(END)\n\n'
+
+BLACKFRIDAY_PATH := $(realpath resume/vendor/github.com/russross/blackfriday/)
+BLACKFRIDAY_PATCH_PATH := $(realpath resume/vendor/patches/github.com/russross/blackfriday/)
+
+.patch-russross-blackfriday: $(BLACKFRIDAY_PATCH_PATH)/html.go.fix-align-tags.patch $(BLACKFRIDAY_PATH)/html.go
+	@printf '$(BLU)Patching blackfriday submodule...$(END)\n'
+	cd $(BLACKFRIDAY_PATH) && git apply $<
+	touch $@
 	@printf '$(GRN)Done!$(END)\n\n'
