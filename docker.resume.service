@@ -1,0 +1,11 @@
+[Unit]
+Description=Personal Resume go app
+After=docker.service docker.install-docker-compose.service docker.infrastructure.service
+Requires=docker.service docker.install-docker-compose.service docker.infrastructure.service
+
+[Service]
+TimeoutStartSec=0
+WorkingDirectory=/opt/resume
+ExecStart=/opt/bin/docker-compose up
+
+[Install]
