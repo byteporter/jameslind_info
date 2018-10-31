@@ -20,12 +20,6 @@ SERVICE_PATH := /opt/resume
 SERVICE_FILES := Dockerfile docker-compose.yml docker-compose.override.yml.dist .env.dist
 SERVER_URL := jameslind.info
 
-install:
-	@printf '$(BLU)Installing onto $(SERVER_URL)...$(END)\n'
-	rsync -vzh --rsync-path='sudo rsync' docker.resume.service core@$(SERVER_URL):$(UNIT_PATH)/
-	rsync -vzh $(SERVICE_FILES) core@$(SERVER_URL):$(SERVICE_PATH)/
-	@printf '$(GRN)Done!$(END)\n\n'
-
 .PHONY: all clean install uninstall
 
 all: .application-container
@@ -81,4 +75,10 @@ BLACKFRIDAY_PATCH_PATH := $(realpath resume/vendor/patches/github.com/russross/b
 	@printf '$(BLU)Patching blackfriday submodule...$(END)\n'
 	cd $(BLACKFRIDAY_PATH) && git apply $<
 	touch $@
+	@printf '$(GRN)Done!$(END)\n\n'
+
+install:
+	@printf '$(BLU)Installing onto $(SERVER_URL)...$(END)\n'
+	rsync -vzh --rsync-path='sudo rsync' docker.resume.service core@$(SERVER_URL):$(UNIT_PATH)/
+	rsync -vzh $(SERVICE_FILES) core@$(SERVER_URL):$(SERVICE_PATH)/
 	@printf '$(GRN)Done!$(END)\n\n'
