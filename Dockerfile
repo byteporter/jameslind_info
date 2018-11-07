@@ -6,4 +6,4 @@ EXPOSE 80
 ADD resume-build-output.tar.gz /
 
 WORKDIR /usr/share/resume/
-ENTRYPOINT [ "/go/bin/resume" ]
+ENTRYPOINT [ "/go/bin/resume", "-p", "80", "-c", "/usr/share/resume" ]

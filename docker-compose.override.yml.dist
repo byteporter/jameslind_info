@@ -1,5 +1,7 @@
 version: '3.4'
 
+# Variables used by letsencrypt proxy helper to request SSL certificates. You don't need this for development.
+
 services:
   resume:
     environment: 

@@ -1,0 +1,8 @@
+version: '3.4'
+
+# Use the shared certificate for development purposes.
+
+services:
+  resume:
+    environment: 
+      - CERT_NAME=shared
